@@ -1,53 +1,73 @@
-from tkinter import*
-CalGUI=Tk()
-CalGUI.geometry("400x250") 
-sum=''
-def Addition(sum):
-    sum=sum+'+'
-def Subtraction(sum):
-    sum=sum+'-'
-def Multiplication(sum):
-    sum=sum+'*'
-def Division(sum):
-    sum=sum+'/'
-def One(sum):
-    sum=sum+'1'
-def Two(sum):
-    sum=sum+'2'
-def Three(sum):
-    sum=sum+'3'
-def Four(sum):
-    sum=sum+'4'
-def Five(sum):
-    sum=sum+'5'
-def Six(sum):
-    sum=sum+'6'
-def Seven(sum):
-    sum=sum+'7'
-def Eight(sum):
-    sum=sum+'8'
-def Nine(sum):
-    sum=sum+'9'
-def Zero(sum):
-    sum=sum+'0'
-Plus_Btn=Button(text="+",command=Addition(sum),width=5,height=2).place(x=10,y=40)
-Minus_Btn=Button(text="-",command=Subtraction(sum),width=5,height=2).place(x=80,y=40)
-Times_Btn=Button(text="x",command=Multiplication(sum),width=5,height=2).place(x=160,y=40)
-Divede_Btn=Button(text="/",command=Division(sum),width=5,height=2).place(x=240,y=40)
-One_Btn=Button(text="1",command=One(sum),width=5,height=2).place(x=10,y=80)
-Two_Btn=Button(text="2",command=Two(sum),width=5,height=2).place(x=80,y=80)
-Three_Btn=Button(text="3",command=Three(sum),width=5,height=2).place(x=160,y=80)
-Four_Btn=Button(text="4",command=Four(sum),width=5,height=2).place(x=240,y=80)
-Five_Btn=Button(text="5",command=Five(sum),width=5,height=2).place(x=10,y=120)
-Six_Btn=Button(text="6",command=Six(sum),width=5,height=2).place(x=80,y=120)
-Seven_Btn=Button(text="7",command=Seven(sum),width=5,height=2).place(x=160,y=120)
-Eight_Btn=Button(text="8",command=Eight(sum),width=5,height=2).place(x=240,y=120)
-Nine_Btn=Button(text="9",command=Nine(sum),width=5,height=2).place(x=80,y=160)
-Zero_Btn=Button(text="0",command=Zero(sum),width=5,height=2).place(x=160,y=160)
-def Equals(sum):
-    for i in len(sum):
-        if sum[i]=="+":
-            num=sum[i]
-Equal_Btn=Button(text="=",command=Equals,width=4,height=5).place(x=350,y=40)
-Cal_lbl=Label(text=(sum),width=40,height=2,bg="blue").place(x=5,y=10)
-CalGUI.mainloop()
+#importing system utils to use to exit program
+import sys
+#Declaring class to be called in GUI function later
+class Calculator:
+    #Constructor initialising instances
+    def __init__(self,Input,ValueArray):
+        self.Input=Input
+        self.ValueArray=ValueArray
+    #functions used to calculate    
+    def multiplication(self):
+       result=1
+       for i in range(len(self.ValueArray)):
+            result=result*int(self.ValueArray[i])
+       print("Answer: "+str(result))
+    
+    def subtraction(self):
+        result=int(self.ValueArray[0])+int(self.ValueArray[0])
+        for i in range(len(self.ValueArray)):
+            result=result-int(self.ValueArray[i])
+        print("Answer: "+str(result))
+    
+    def addition(self):
+        result=int()
+        for i in range(len(self.ValueArray)):
+            result=result+int(self.ValueArray[i])
+        print("Answer: "+str(result))
+    
+    def division(self):
+        result=int(self.ValueArray[0])*int(self.ValueArray[0])
+        for i in range(len(self.ValueArray)):
+            result=result/int(self.ValueArray[i])
+        print("Answer: "+str(result))
+def Clear():
+    Option=input("If error, type 'Clear' to restart or 'Next' to continue")
+    if Option[0]=="C" or Option[0]=="c":
+        GUI()
+#GUI function
+def GUI():
+    #Choice between functions
+    User_input=input("Choose function. Choose between multiplication, addition, subtraction and division:")
+    Clear()
+    #Input asking how many values the user would like to process
+    NoNumbers=int(input("Enter number of values to be processed:"))
+    Clear()
+    #Array containing user values
+    ValueContainer=[]
+    for i in range(NoNumbers):
+        Value=input("Enter required value as integer:")
+        ValueContainer.append(Value)
+    x=Calculator(User_input, ValueContainer)
+    #If statement used to carry bout users choice and call corresponding function from function class
+    if User_input[0]=="m" or User_input[0]=="M":
+        x.multiplication()
+    if User_input[0]=="s" or User_input[0]=="S":
+        x.subtraction()
+    if User_input[0]=="a" or User_input[0]=="A":
+        x.addition()
+    if User_input[0]=="d" or User_input[0]=="D":
+        x.division()
+    #Option to either exit or start again
+    Option=input("Type 'Next' to proceed and 'Exit' to close")
+    if Option[0]=="N" or Option[0]=="n":
+        GUI()
+    else:
+        sys.exit()
+#Printing greeting
+print("Welcome to Calculator!")
+#Option to either exit or start again
+Option=input("Type 'Next' to proceed and 'Exit' to close")
+if Option[0]=="N" or Option[0]=="n":
+    GUI()
+else:
+    sys.exit()
